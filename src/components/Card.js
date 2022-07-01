@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Card,
   CardActions,
@@ -21,8 +22,14 @@ export default function MediaCard({
   returnFromAirport,
   cityImage,
   fromAmount,
+  id,
 }) {
+  let navigate = useNavigate()
   const { src, alt } = cityImage || {}
+
+  const handleRedirect = () => {
+    navigate(`../flights/${id}`)
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -52,9 +59,15 @@ export default function MediaCard({
         </Stack>
       </CardContent>
       <CardActions>
-        <Stack sx={{justifyContent:'center', alignItems:'center', marginLeft: 'auto'}}>
-          <Typography  color='green'>{fromAmount}PLN</Typography>
-          <Button  variant='contained'>
+        <Stack
+          sx={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginLeft: 'auto',
+          }}
+        >
+          <Typography color='green'>{fromAmount}PLN</Typography>
+          <Button onClick={handleRedirect} variant='contained'>
             Select
           </Button>
         </Stack>
