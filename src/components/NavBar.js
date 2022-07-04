@@ -28,7 +28,9 @@ const LinkWrapper = styled.div`
 function Wrapper({ to, text }) {
   return (
     <LinkWrapper>
-      <NavLink to={to}>{text}</NavLink>
+      <NavLink end to={to}>
+        {text}
+      </NavLink>
     </LinkWrapper>
   )
 }

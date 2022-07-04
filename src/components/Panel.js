@@ -3,10 +3,18 @@ import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Box from '@mui/material/Box'
-import { TextField } from '@mui/material'
-import FormGroup from '@mui/material/FormGroup'
+import { Paper, TextField } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
+import styled from '@emotion/styled'
+
+const StyledPaper = styled(Paper)`
+  background-color: grey;
+  max-width: 80%;
+  height: 200px;
+  padding: 20px;
+  border: 2px solid grey;
+`
 
 export default function ButtonsGroup() {
   const [from, setFrom] = React.useState('')
@@ -48,8 +56,16 @@ export default function ButtonsGroup() {
   }
 
   return (
-    <>
-      <RadioGroup row name='ticket' onChange={handleRunChange} value={run}>
+    <StyledPaper>
+      <RadioGroup
+        sx={{
+          ml: 1,
+        }}
+        row
+        name='ticket'
+        onChange={handleRunChange}
+        value={run}
+      >
         <FormControlLabel value='return' control={<Radio />} label='Return' />
         <FormControlLabel value='one way' control={<Radio />} label='One way' />
         <FormControlLabel
@@ -60,27 +76,56 @@ export default function ButtonsGroup() {
       </RadioGroup>
 
       <Box
-        component='form'
         sx={{
           '& > :not(style)': { m: 1 },
+          display: 'flex',
+          flexDirection: 'row',
         }}
         noValidate
         autoComplete='off'
       >
-        <TextField
-          label='From'
-          placeholder='Country, city, airpot'
-          InputLabelProps={{ shrink: true }}
-          onChange={handleFromChange}
-          value={from}
-        />
-        <TextField
-          label='To'
-          placeholder='Country, city, airpot'
-          InputLabelProps={{ shrink: true }}
-          onChange={handleToChange}
-          value={to}
-        />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <TextField
+            label='From'
+            placeholder='Country, city, airpot'
+            InputLabelProps={{ shrink: true }}
+            onChange={handleFromChange}
+            value={from}
+          />
+          <FormControlLabel
+            onChange={handleNearbyFromAirportsChange}
+            value={nearbyAirportsFrom}
+            control={<Checkbox />}
+            label='Add nearby airports'
+          />
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <TextField
+            label='To'
+            placeholder='Country, city, airpot'
+            InputLabelProps={{ shrink: true }}
+            onChange={handleToChange}
+            value={to}
+          />
+          <FormControlLabel
+            control={<Checkbox />}
+            label='Add nearby airports'
+            onChange={handleNearbyToAirportsChange}
+            value={nearbyAirportsTo}
+          />
+        </Box>
+
         <TextField
           type='date'
           label='Depart'
@@ -96,42 +141,39 @@ export default function ButtonsGroup() {
           value={returnDate}
         />
       </Box>
+      <Box>
+        <FormControlLabel
+          control={<Checkbox />}
+          label='Direct flights only'
+          onChange={handleDirectFlightsFromChange}
+          value={directFlyFrom}
+        />
+      </Box>
 
-      <FormControlLabel
-        onChange={handleNearbyFromAirportsChange}
-        value={nearbyAirportsFrom}
-        control={<Checkbox sx={{ mr: 2 }} />}
-        label='Add nearby airports'
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label='Add nearby airports'
-        onChange={handleNearbyToAirportsChange}
-        value={nearbyAirportsTo}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        label='Direct flights only'
-        onChange={handleDirectFlightsFromChange}
-        value={directFlyFrom}
-      />
-      <Button
-        variant='contained'
-        onClick={() => {
-          console.log(
-            from,
-            to,
-            departDate,
-            returnDate,
-            run,
-            nearbyAirportsTo,
-            directFlyFrom,
-            nearbyAirportsFrom
-          )
+      <Box
+        sx={{
+          mt: -5,
+          ml: 80,
         }}
       >
-        Get started
-      </Button>
-    </>
+        <Button
+          variant='contained'
+          onClick={() => {
+            console.log(
+              from,
+              to,
+              departDate,
+              returnDate,
+              run,
+              nearbyAirportsTo,
+              directFlyFrom,
+              nearbyAirportsFrom
+            )
+          }}
+        >
+          Get started
+        </Button>
+      </Box>
+    </StyledPaper>
   )
 }
