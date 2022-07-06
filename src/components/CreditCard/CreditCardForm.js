@@ -2,18 +2,22 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
+import { DatePicker } from '@mui/x-date-pickers'
 
-export default function BasicCard({ renderBackgroundCard }) {
-  const [value, setValue] = React.useState('Controlled')
-
-  const handleChange = (event) => {
-    setValue(event.target.value)
-  }
-
+export default function BasicCard({
+  renderBackgroundCard,
+  nameCard,
+  onChangeCardName,
+  cardNumber,
+  onChangeCardNumber,
+  dateCard,
+  onChangeDateCard,
+  cardCVV,
+  onChangeCardCVV,
+}) {
   return (
     <Card
       sx={{
@@ -41,18 +45,16 @@ export default function BasicCard({ renderBackgroundCard }) {
           label='Name of Card'
           placeholder='John Smith'
           variant='standard'
+          value={nameCard}
+          onChange={onChangeCardName}
         />
         <TextField
           label='Card Number'
-          type='tel'
-          inputmode='numeric'
-          inputProps={{
-            pattern: '[0-9s]{13,19}',
-            type: 'tel',
-            inputmode: 'numeric',
-          }}
           placeholder='4568 3479 4589 3589'
+          inputProps={{ maxLength: 16 }}
           variant='standard'
+          value={cardNumber}
+          onChange={onChangeCardNumber}
         />
         <Box
           sx={{
@@ -61,18 +63,24 @@ export default function BasicCard({ renderBackgroundCard }) {
             justifyContent: 'space-between',
           }}
         >
-          <TextField
-            sx={{ mr: '20px' }}
+          <DatePicker
             label='Valid Through'
-            placeholder='06/22'
-            variant='standard'
+            inputFormat='MM/yy'
+            value={dateCard}
+            onChange={onChangeDateCard}
+            renderInput={(params) => (
+              <TextField {...params} sx={{ mr: '20px' }} variant='standard' />
+            )}
           />
           <TextField
             label='CVV'
             placeholder='666'
+            inputProps={{ maxLength: 3 }}
             variant='standard'
             onFocus={renderBackgroundCard}
             onBlur={renderBackgroundCard}
+            value={cardCVV}
+            onChange={onChangeCardCVV}
           />
         </Box>
       </Box>

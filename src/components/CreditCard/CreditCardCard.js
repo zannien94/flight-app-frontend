@@ -6,7 +6,13 @@ import Typography from '@mui/material/Typography'
 import CreditCardIcon from '@mui/icons-material/CreditCard'
 import MasterCardIcon from '../icons/MasterCardIcon'
 
-export default function BasicCard({ isCardBackground }) {
+export default function BasicCard({
+  isCardBackground,
+  nameCard,
+  cardNumber,
+  dateCard,
+  cardCVV,
+}) {
   return (
     <Card
       sx={{
@@ -40,7 +46,7 @@ export default function BasicCard({ isCardBackground }) {
               CVC
             </Typography>
             <Typography variant='body2' color='white'>
-              1234
+              {cardCVV}
             </Typography>
           </Box>
         ) : (
@@ -63,7 +69,7 @@ export default function BasicCard({ isCardBackground }) {
               }}
             />
             <Typography variant='body1' color='white'>
-              44444444
+              {cardNumber}
             </Typography>
 
             <Box
@@ -73,10 +79,14 @@ export default function BasicCard({ isCardBackground }) {
               }}
             >
               <Typography variant='body2' color='white'>
-                ARJUN KUNWAR
+                {nameCard}
               </Typography>
               <Typography variant='body2' color='white'>
-                09/20
+                {dateCard &&
+                  `${dateCard.getMonth()}/${dateCard
+                    .getFullYear()
+                    .toString()
+                    .slice(2, 4)}`}
               </Typography>
             </Box>
           </>
