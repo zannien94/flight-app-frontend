@@ -16,7 +16,7 @@ function Layout({ children }) {
   return (
     <>
       <NavBar />
-      <Box margin='16px'>
+      <Box margin='80px 16px 16px'>
         <h2> {pathName}</h2>
       </Box>
       <Main>{children}</Main>

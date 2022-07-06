@@ -38,7 +38,7 @@ function Wrapper({ to, text }) {
 export default function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static' sx={{ background: 'skyblue' }}>
+      <AppBar position='fixed' sx={{ background: 'skyblue' }}>
         <Toolbar>
           <IconButton
             size='large'
