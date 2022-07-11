@@ -1,30 +1,47 @@
+import React from 'react'
 import styled from '@emotion/styled'
 import { Typography, Stack } from '@mui/material'
-import React from 'react'
+import ReactPlayer from 'react-player'
 
 const Header = styled.div`
-  height: 400px;
-  background-image: url('/images/picture_1.jpg');
-  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-position: 50%;
   background-size: cover;
 `
+const StyleBox = styled.div`
+  width: 100%;
+  max-height: 80px;
+  background-color: black;
+`
 
 const About = () => {
+  const [setSpacing] = React.useState(2)
+
+  const handleChange = (event) => {
+    setSpacing(Number(event.target.value))
+  }
+
   return (
-    <>
-      <h1>About us</h1>
+    <Stack>
       <Header>
-        <Stack
-          direction='row'
-          justifyContent='center'
-          alignItems='center'
-          height='100%'
-        >
-          <Typography variant='h2'>Witajce</Typography>
-        </Stack>
+        <StyleBox>
+          <Typography fontWeight='700' variant='h4' color='white' ml='5px'>
+            Discover the real value of travel with MiuMiuSky
+          </Typography>
+        </StyleBox>
+        <ReactPlayer
+          width={'100%'}
+          height={'600px'}
+          url='https://www.youtube.com/watch?v=tMFnxRZqEnw'
+          playing
+          controls={false}
+          loop
+          muted={true}
+        />
       </Header>
-    </>
+    </Stack>
   )
 }
 
