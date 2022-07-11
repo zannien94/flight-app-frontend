@@ -7,70 +7,96 @@ import { Paper, TextField } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
 import styled from '@emotion/styled'
+import { grey } from '@mui/material/colors'
 
 const StyledPaper = styled(Paper)`
-  background-color: grey;
-  max-width: 80%;
-  height: 200px;
   padding: 20px;
-  border: 2px solid grey;
+  height: 220px;
+  border: 2px solid whitesmoke;
+  background-color: #0e0054;
 `
 
-export default function ButtonsGroup() {
-  const [from, setFrom] = React.useState('')
-  const [departDate, setDepartDate] = React.useState('')
-  const [returnDate, setReturnDate] = React.useState('')
-  const [to, setTo] = React.useState('')
-  const [run, setRun] = React.useState('')
-  const [nearbyAirportsTo, setNearbyAirportsTo] = React.useState(false)
-  const [nearbyAirportsFrom, setNearbyAirportsFrom] = React.useState(false)
-  const [directFlyFrom, setDirectFlyFrom] = React.useState(false)
+const StyledTextField = styled(TextField)({
+  '& label': {
+    color: 'white',
+  },
+  '& label.Mui-focused': {
+    color: 'white',
+  },
+  '& .MuiOutlinedInput-root': {
+    color: 'white',
+    '& fieldset': {
+      borderColor: 'white',
+    },
+  },
 
-  const handleFromChange = (event) => {
-    setFrom(event.target.value)
-  }
+  'input::-webkit-calendar-picker-indicator': {
+    filter: 'invert(1)',
+  },
+})
 
-  const handleDepartDateChange = (event) => {
-    setDepartDate(event.target.value)
-  }
-
-  const handleReturnDateChange = (event) => {
-    setReturnDate(event.target.value)
-  }
-  const handleToChange = (event) => {
-    setTo(event.target.value)
-  }
-  const handleRunChange = (event) => {
-    setRun(event.target.value)
-  }
-  const handleNearbyFromAirportsChange = () => {
-    setNearbyAirportsFrom((value) => !value)
-  }
-
-  const handleNearbyToAirportsChange = () => {
-    setNearbyAirportsTo((value) => !value)
-  }
-
-  const handleDirectFlightsFromChange = () => {
-    setDirectFlyFrom((value) => !value)
-  }
-
+export default function Panel({
+  from,
+  departDate,
+  returnDate,
+  to,
+  run,
+  nearbyAirportsFrom,
+  nearbyAirportsTo,
+  directFlyFrom,
+  handleFromChange,
+  handleDepartDateChange,
+  handleReturnDateChange,
+  handleToChange,
+  handleRunChange,
+  handleNearbyFromAirportsChange,
+  handleNearbyToAirportsChange,
+  handleDirectFlightsFromChange,
+  onSubmit,
+}) {
   return (
     <StyledPaper>
       <RadioGroup
         sx={{
           ml: 1,
+          color: 'white',
         }}
         row
         name='ticket'
         onChange={handleRunChange}
         value={run}
       >
-        <FormControlLabel value='return' control={<Radio />} label='Return' />
-        <FormControlLabel value='one way' control={<Radio />} label='One way' />
+        <FormControlLabel
+          value='return'
+          control={
+            <Radio
+              sx={{
+                color: 'white',
+              }}
+            />
+          }
+          label='Return'
+        />
+        <FormControlLabel
+          value='one way'
+          control={
+            <Radio
+              sx={{
+                color: 'white',
+              }}
+            />
+          }
+          label='One way'
+        />
         <FormControlLabel
           value='multi-city'
-          control={<Radio />}
+          control={
+            <Radio
+              sx={{
+                color: 'white',
+              }}
+            />
+          }
           label='Multi-city'
         />
       </RadioGroup>
@@ -90,7 +116,7 @@ export default function ButtonsGroup() {
             flexDirection: 'column',
           }}
         >
-          <TextField
+          <StyledTextField
             label='From'
             placeholder='Country, city, airpot'
             InputLabelProps={{ shrink: true }}
@@ -100,8 +126,20 @@ export default function ButtonsGroup() {
           <FormControlLabel
             onChange={handleNearbyFromAirportsChange}
             value={nearbyAirportsFrom}
-            control={<Checkbox />}
             label='Add nearby airports'
+            sx={{
+              color: 'white',
+            }}
+            control={
+              <Checkbox
+                sx={{
+                  color: grey[50],
+                  '&.Mui-checked': {
+                    color: 'white',
+                  },
+                }}
+              />
+            }
           />
         </Box>
 
@@ -111,7 +149,7 @@ export default function ButtonsGroup() {
             flexDirection: 'column',
           }}
         >
-          <TextField
+          <StyledTextField
             label='To'
             placeholder='Country, city, airpot'
             InputLabelProps={{ shrink: true }}
@@ -119,21 +157,33 @@ export default function ButtonsGroup() {
             value={to}
           />
           <FormControlLabel
-            control={<Checkbox />}
             label='Add nearby airports'
+            sx={{
+              color: 'white',
+            }}
             onChange={handleNearbyToAirportsChange}
             value={nearbyAirportsTo}
+            control={
+              <Checkbox
+                sx={{
+                  color: grey[50],
+                  '&.Mui-checked': {
+                    color: 'white',
+                  },
+                }}
+              />
+            }
           />
         </Box>
 
-        <TextField
+        <StyledTextField
           type='date'
           label='Depart'
           onChange={handleDepartDateChange}
           InputLabelProps={{ shrink: true }}
           value={departDate}
         />
-        <TextField
+        <StyledTextField
           type='date'
           label='Return'
           onChange={handleReturnDateChange}
@@ -141,39 +191,41 @@ export default function ButtonsGroup() {
           value={returnDate}
         />
       </Box>
-      <Box>
+      <Box
+        sx={{
+          ml: 1,
+        }}
+      >
         <FormControlLabel
-          control={<Checkbox />}
-          label='Direct flights only'
           onChange={handleDirectFlightsFromChange}
           value={directFlyFrom}
+          label='Direct flights only'
+          sx={{
+            color: 'white',
+          }}
+          control={
+            <Checkbox
+              sx={{
+                color: grey[50],
+                '&.Mui-checked': {
+                  color: 'white',
+                },
+              }}
+            />
+          }
         />
       </Box>
 
-      <Box
+      <Button
         sx={{
-          mt: -5,
-          ml: 80,
+          display: 'Block',
+          marginLeft: 'auto',
         }}
+        variant='contained'
+        onClick={onSubmit}
       >
-        <Button
-          variant='contained'
-          onClick={() => {
-            console.log(
-              from,
-              to,
-              departDate,
-              returnDate,
-              run,
-              nearbyAirportsTo,
-              directFlyFrom,
-              nearbyAirportsFrom
-            )
-          }}
-        >
-          Get started
-        </Button>
-      </Box>
+        Get started
+      </Button>
     </StyledPaper>
   )
 }
