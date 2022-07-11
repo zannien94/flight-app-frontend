@@ -4,7 +4,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   Button,
   Typography,
   Stack,
@@ -20,25 +19,28 @@ export default function MediaCard({
   returnPlane,
   returnToAirport,
   returnFromAirport,
-  cityImage,
   fromAmount,
   id,
 }) {
-  let navigate = useNavigate()
-  const { src, alt } = cityImage || {}
+  const navigate = useNavigate()
 
   const handleRedirect = () => {
     navigate(`../flights/${id}`)
   }
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component='img'
-        height='140'
-        image={src || ''}
-        alt={alt || ''}
-      />
+    <Card
+      sx={{
+        maxWidth: 345,
+        minWidth: 300,
+        '> div:first-child': {
+          background: 'paleturquoise',
+        },
+        ':nth-child(odd) > div:first-child': {
+          background: 'darkturquoise',
+        },
+      }}
+    >
       <CardContent>
         <Typography gutterBottom variant='h5' component='div'>
           {city}
