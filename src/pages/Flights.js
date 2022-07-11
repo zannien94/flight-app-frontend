@@ -4,6 +4,7 @@ import { Typography, Stack } from '@mui/material'
 import Panel from '../components/Panel'
 import CardList from '../components/CardList'
 import { getDateForFlight } from '../utils'
+import { setGlobalState } from '../globalState'
 
 const Header = styled.div`
   height: 600px;
@@ -24,7 +25,6 @@ const Flights = () => {
   const [nearbyAirportsTo, setNearbyAirportsTo] = useState(false)
   const [nearbyAirportsFrom, setNearbyAirportsFrom] = useState(false)
   const [directFlyFrom, setDirectFlyFrom] = useState(false)
-  const [flightsData, setFlightsData] = useState([])
 
   const handleFromChange = (event) => {
     setFrom(event.target.value)
@@ -78,7 +78,7 @@ const Flights = () => {
         },
       })
       const data = await response.json()
-      setFlightsData(data)
+      setGlobalState('flights', data)
     } catch (err) {
       alert(err)
     }
@@ -123,7 +123,7 @@ const Flights = () => {
           Travel like a pro with our best offers!
         </Typography>
       </Stack>
-      <CardList flightsData={flightsData} />
+      <CardList />
     </Stack>
   )
 }

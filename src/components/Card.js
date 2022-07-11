@@ -9,7 +9,7 @@ import {
   Stack,
 } from '@mui/material'
 
-export default function MediaCard({
+export default function FlightCard({
   city,
   fromDate,
   toDate,

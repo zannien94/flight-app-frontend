@@ -2,8 +2,11 @@ import React, { memo } from 'react'
 import Card from './Card'
 import { Stack } from '@mui/material'
 import { cityList } from '../utils'
+import { useGlobalState } from '../globalState'
 
-const CardList = memo(({ flightsData }) => {
+const CardList = memo(() => {
+  const [flights] = useGlobalState('flights')
+
   return (
     <Stack
       direction='row'
@@ -12,7 +15,7 @@ const CardList = memo(({ flightsData }) => {
       flexWrap='wrap'
       justifyContent='space-between'
     >
-      {flightsData.map((flight) => {
+      {flights.map((flight) => {
         const cityObject = cityList.find(
           (cityItem) => cityItem.iata === flight.legs[0].destination
         )
