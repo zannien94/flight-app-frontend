@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { NavLink } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import { NavLink, useNavigate } from 'react-router-dom'
 import styled from '@emotion/styled'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -7,6 +8,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
+import { useGlobalState, setGlobalState } from '../globalState'
 
 const LinkWrapper = styled.div`
   flex-grow: 1;
@@ -34,7 +36,20 @@ function Wrapper({ to, text }) {
   )
 }
 
-export default function ButtonAppBar() {
+export default function NavBar() {
+  const [isUserLogged] = useGlobalState('isUserLogged')
+
+  const navigate = useNavigate()
+
+  const handleRedirect = () => {
+    navigate(`../login`)
+  }
+
+  const handleLogout = () => {
+    setGlobalState('isUserLogged', false)
+    Cookies.remove('isUserLogged')
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='fixed' sx={{ background: 'skyblue' }}>
@@ -50,10 +65,13 @@ export default function ButtonAppBar() {
           </IconButton>
           <Wrapper to='/' text='Flights' />
           <Wrapper to='/about' text='About us' />
-          <Wrapper to='/gallery' text='Gallery' />
           <Wrapper to='/contact' text='Contact us' />
-          <Button color='inherit' sx={{ ml: 'auto' }}>
-            Login
+          <Button
+            onClick={isUserLogged ? handleLogout : handleRedirect}
+            color='inherit'
+            sx={{ ml: 'auto' }}
+          >
+            {isUserLogged ? 'Logout' : 'Login'}
           </Button>
         </Toolbar>
       </AppBar>

@@ -38,8 +38,9 @@ export default function InfoFlight({
   toNameAirport,
   fromNameAirport,
   timeFlay,
+  defaultExpanded = false,
 }) {
-  const [expanded, setExpanded] = React.useState(false)
+  const [expanded, setExpanded] = React.useState(defaultExpanded)
 
   const handleChange = () => setExpanded((prev) => !prev)
 
