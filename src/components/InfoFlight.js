@@ -27,7 +27,18 @@ const AccordionSummary = styled(MuiAccordionSummary)`
   max-width: 100%;
 `
 
-export default function CustomizedAccordions() {
+export default function InfoFlight({
+  title,
+  dayFlay,
+  fromDate,
+  toAirport,
+  fromAirport,
+  fromHour,
+  toHour,
+  toNameAirport,
+  fromNameAirport,
+  timeFlay,
+}) {
   const [expanded, setExpanded] = React.useState(false)
 
   const handleChange = () => setExpanded((prev) => !prev)
@@ -36,9 +47,11 @@ export default function CustomizedAccordions() {
     <Stack alignItems='center'>
       <Stack direction={'row'} spacing={1}>
         <Typography fontSize='20px' fontWeight={'700'}>
-          Outbound
+          {title}
         </Typography>
-        <Typography fontSize='18px'>Thu, 25 Aug 2022</Typography>
+        <Typography fontSize='18px'>
+          {dayFlay},{fromDate}
+        </Typography>
       </Stack>
       <Accordion square expanded={expanded} onChange={handleChange}>
         <AccordionSummary
@@ -56,11 +69,11 @@ export default function CustomizedAccordions() {
             marginLeft='50px'
           >
             <Stack>
-              <Typography variant='body1'>06:15</Typography>
-              <Typography variant='body1'>WAW</Typography>
+              <Typography variant='body1'>{fromHour}</Typography>
+              <Typography variant='body1'>{fromAirport}</Typography>
             </Stack>
             <Stack textAlign={'center'}>
-              <Typography variant='body3'>2h 30</Typography>
+              <Typography variant='body3'>{timeFlay}</Typography>
 
               <Stack
                 sx={{
@@ -82,8 +95,8 @@ export default function CustomizedAccordions() {
               <Typography variant='body3'>Direct</Typography>
             </Stack>
             <Stack>
-              <Typography variant='body1'>08:45</Typography>
-              <Typography variant='body1'>ORY</Typography>
+              <Typography variant='body1'>{toHour}</Typography>
+              <Typography variant='body1'>{toAirport}</Typography>
             </Stack>
           </Stack>
         </AccordionSummary>
@@ -101,20 +114,26 @@ export default function CustomizedAccordions() {
               fontSize='10px'
               variant='body5'
             >
-              2h 30
+              {timeFlay}
             </Typography>
           </Stack>
           <Box sx={{ width: '8%', transform: 'rotate(90deg)' }}>
             <LinearProgress />
           </Box>
           <Stack spacing={2}>
-            <Typography variant='body1'>06:15 WAW Warsaw Chopin</Typography>
-            <Typography variant='body1'>08:45 ORY Paris Orly</Typography>
+            <Typography variant='body1'>
+              {fromHour} {fromAirport} {fromNameAirport}
+            </Typography>
+            <Typography variant='body1'>
+              {toHour} {toAirport} {toNameAirport}
+            </Typography>
           </Stack>
         </Box>
         <Stack direction={'row'} spacing={2}>
-          <Typography fontSize='10px'>Arrives: Thu,25 Aug 2022</Typography>
-          <Typography fontSize='10px'>Journey duration: 2h 30</Typography>
+          <Typography fontSize='10px'>
+            Arrives: {dayFlay},{fromDate}
+          </Typography>
+          <Typography fontSize='10px'>Journey duration: {timeFlay}</Typography>
         </Stack>
       </Accordion>
     </Stack>
