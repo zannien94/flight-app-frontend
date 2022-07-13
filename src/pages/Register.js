@@ -7,6 +7,34 @@ import { Stack, Typography } from '@mui/material'
 import { createUser } from '../services'
 
 export default function Register() {
+  const onSubmit = async (event) => {
+    event.preventDefault()
+    const { email, firstName, lastName, password } = event.target
+
+    const data = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
+    }
+
+    try {
+      const res = await createUser(data)
+
+      if (res.statusCode === 409) {
+        throw res.statusCode
+      }
+
+      alert(`USER CREATED!`)
+    } catch (err) {
+      if (err === 409) {
+        alert(`USER EXIST!`)
+      } else {
+        alert(`CAN NOT CREATE USER! ${err}`)
+      }
+    }
+  }
+
   return (
     <Stack alignItems='center'>
       <Card
@@ -19,37 +47,7 @@ export default function Register() {
           minWidth: 300,
         }}
       >
-        <Stack
-          spacing={2}
-          component='form'
-          onSubmit={async (event) => {
-            event.preventDefault()
-            const { email, firstName, lastName, password } = event.target
-
-            const data = {
-              firstName: firstName.value,
-              lastName: lastName.value,
-              email: email.value,
-              password: password.value,
-            }
-
-            try {
-              const res = await createUser(data)
-
-              if (res.statusCode === 409) {
-                throw res.statusCode
-              }
-
-              alert(`USER CREATED!`)
-            } catch (err) {
-              if (err === 409) {
-                alert(`USER EXIST!`)
-              } else {
-                alert(`CAN NOT CREATE USER! ${err}`)
-              }
-            }
-          }}
-        >
+        <Stack spacing={2} component='form' onSubmit={onSubmit}>
           <Stack spacing={2} direction='row' justifyContent='space-between'>
             <Typography variant='h5'>REGISTER</Typography>
             <NavLink to='/login'>Login</NavLink>

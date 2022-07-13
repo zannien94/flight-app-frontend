@@ -7,6 +7,7 @@ import Contact from './pages/Contact'
 import FlightDetails from './pages/FlightDetails'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import UserFlights from './pages/UserFlights'
 
 function Routes() {
   return (
@@ -18,6 +19,7 @@ function Routes() {
         <Route path='flights/:id' element={<FlightDetails />} />
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
+        <Route path='user/flights' element={<UserFlights />} />
       </Router>
     </Layout>
   )
