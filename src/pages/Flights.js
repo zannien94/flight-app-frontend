@@ -18,41 +18,24 @@ const Header = styled.div`
 
 const Flights = () => {
   const [from, setFrom] = useState('')
-  const [departDate, setDepartDate] = useState('')
-  const [returnDate, setReturnDate] = useState('')
+  const [departDate, setDepartDate] = useState(new Date())
+  const [returnDate, setReturnDate] = useState(new Date())
   const [to, setTo] = useState('')
-  const [run, setRun] = useState('')
-  const [nearbyAirportsTo, setNearbyAirportsTo] = useState(false)
-  const [nearbyAirportsFrom, setNearbyAirportsFrom] = useState(false)
-  const [directFlyFrom, setDirectFlyFrom] = useState(false)
 
   const handleFromChange = (event) => {
     setFrom(event.target.value)
   }
 
-  const handleDepartDateChange = (event) => {
-    setDepartDate(event.target.value)
+  const handleDepartDateChange = (date) => {
+    setDepartDate(date)
   }
 
-  const handleReturnDateChange = (event) => {
-    setReturnDate(event.target.value)
+  const handleReturnDateChange = (date) => {
+    setReturnDate(date)
   }
+
   const handleToChange = (event) => {
     setTo(event.target.value)
-  }
-  const handleRunChange = (event) => {
-    setRun(event.target.value)
-  }
-  const handleNearbyFromAirportsChange = () => {
-    setNearbyAirportsFrom((value) => !value)
-  }
-
-  const handleNearbyToAirportsChange = () => {
-    setNearbyAirportsTo((value) => !value)
-  }
-
-  const handleDirectFlightsFromChange = () => {
-    setDirectFlyFrom((value) => !value)
   }
 
   const onSubmit = async () => {
@@ -71,16 +54,28 @@ const Flights = () => {
       }
       url.search = new URLSearchParams(params).toString()
 
+      if (
+        !params.startDate ||
+        !params.endDate ||
+        !params.origin ||
+        !params.destination
+      ) {
+        return alert('You forgot to fill inputs!')
+      }
+
       const response = await fetch(url, {
         headers: {
           Accept: 'application/json',
-          Authorization: 'Bearer jn3v7jnf335gej34u73t6zqv',
+          Authorization: 'Bearer 6d7bw5ga3ghg2a2mh4azhpqn',
         },
       })
       const data = await response.json()
+      if (data.httpStatus) {
+        throw data
+      }
       setGlobalState('flights', data)
     } catch (err) {
-      alert(err)
+      alert('Something went wrong!')
     }
   }
 
@@ -96,18 +91,10 @@ const Flights = () => {
             departDate={departDate}
             returnDate={returnDate}
             to={to}
-            run={run}
-            nearbyAirportsFrom={nearbyAirportsFrom}
-            nearbyAirportsTo={nearbyAirportsTo}
-            directFlyFrom={directFlyFrom}
             handleFromChange={handleFromChange}
             handleDepartDateChange={handleDepartDateChange}
             handleReturnDateChange={handleReturnDateChange}
             handleToChange={handleToChange}
-            handleRunChange={handleRunChange}
-            handleNearbyFromAirportsChange={handleNearbyFromAirportsChange}
-            handleNearbyToAirportsChange={handleNearbyToAirportsChange}
-            handleDirectFlightsFromChange={handleDirectFlightsFromChange}
             onSubmit={onSubmit}
           />
         </Stack>

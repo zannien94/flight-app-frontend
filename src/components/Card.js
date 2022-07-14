@@ -68,7 +68,7 @@ export default function FlightCard({
             marginLeft: 'auto',
           }}
         >
-          <Typography color='green'>{fromAmount}PLN</Typography>
+          <Typography color='green'>{fromAmount}$</Typography>
           <Button onClick={handleRedirect} variant='contained'>
             Select
           </Button>

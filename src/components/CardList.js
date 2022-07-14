@@ -30,7 +30,11 @@ const CardList = memo(() => {
             fromAirport={flight.legs[0].origin}
             toAirport={flight.legs[0].destination}
             fromPlane={flight.airline}
-            fromAmount='350'
+            fromAmount={
+              (flight.legs[0].aircraftArrivalTimeUTC -
+                flight.legs[0].aircraftDepartureTimeUTC) *
+              5
+            }
             returnPlane={flight.airline}
             returnToAirport={flight.legs[0].origin}
             returnFromAirport={flight.legs[0].destination}

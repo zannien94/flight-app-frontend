@@ -1,17 +1,12 @@
 import * as React from 'react'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
 import Box from '@mui/material/Box'
 import { Paper, TextField } from '@mui/material'
-import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
 import styled from '@emotion/styled'
-import { grey } from '@mui/material/colors'
+import { DatePicker } from '@mui/x-date-pickers'
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
-  height: 220px;
   border: 2px solid whitesmoke;
   background-color: #0e0054;
 `
@@ -29,9 +24,8 @@ const StyledTextField = styled(TextField)({
       borderColor: 'white',
     },
   },
-
-  'input::-webkit-calendar-picker-indicator': {
-    filter: 'invert(1)',
+  button: {
+    color: 'white',
   },
 })
 
@@ -40,67 +34,14 @@ export default function Panel({
   departDate,
   returnDate,
   to,
-  run,
-  nearbyAirportsFrom,
-  nearbyAirportsTo,
-  directFlyFrom,
   handleFromChange,
   handleDepartDateChange,
   handleReturnDateChange,
   handleToChange,
-  handleRunChange,
-  handleNearbyFromAirportsChange,
-  handleNearbyToAirportsChange,
-  handleDirectFlightsFromChange,
   onSubmit,
 }) {
   return (
     <StyledPaper>
-      <RadioGroup
-        sx={{
-          ml: 1,
-          color: 'white',
-        }}
-        row
-        name='ticket'
-        onChange={handleRunChange}
-        value={run}
-      >
-        <FormControlLabel
-          value='return'
-          control={
-            <Radio
-              sx={{
-                color: 'white',
-              }}
-            />
-          }
-          label='Return'
-        />
-        <FormControlLabel
-          value='one way'
-          control={
-            <Radio
-              sx={{
-                color: 'white',
-              }}
-            />
-          }
-          label='One way'
-        />
-        <FormControlLabel
-          value='multi-city'
-          control={
-            <Radio
-              sx={{
-                color: 'white',
-              }}
-            />
-          }
-          label='Multi-city'
-        />
-      </RadioGroup>
-
       <Box
         sx={{
           '& > :not(style)': { m: 1 },
@@ -110,116 +51,45 @@ export default function Panel({
         noValidate
         autoComplete='off'
       >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <StyledTextField
-            label='From'
-            placeholder='Country, city, airpot'
-            InputLabelProps={{ shrink: true }}
-            onChange={handleFromChange}
-            value={from}
-          />
-          <FormControlLabel
-            onChange={handleNearbyFromAirportsChange}
-            value={nearbyAirportsFrom}
-            label='Add nearby airports'
-            sx={{
-              color: 'white',
-            }}
-            control={
-              <Checkbox
-                sx={{
-                  color: grey[50],
-                  '&.Mui-checked': {
-                    color: 'white',
-                  },
-                }}
-              />
-            }
-          />
-        </Box>
-
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <StyledTextField
-            label='To'
-            placeholder='Country, city, airpot'
-            InputLabelProps={{ shrink: true }}
-            onChange={handleToChange}
-            value={to}
-          />
-          <FormControlLabel
-            label='Add nearby airports'
-            sx={{
-              color: 'white',
-            }}
-            onChange={handleNearbyToAirportsChange}
-            value={nearbyAirportsTo}
-            control={
-              <Checkbox
-                sx={{
-                  color: grey[50],
-                  '&.Mui-checked': {
-                    color: 'white',
-                  },
-                }}
-              />
-            }
-          />
-        </Box>
+        <StyledTextField
+          label='From'
+          placeholder='Country, city, airpot'
+          InputLabelProps={{ shrink: true }}
+          onChange={handleFromChange}
+          value={from}
+          required
+        />
 
         <StyledTextField
-          type='date'
+          label='To'
+          placeholder='Country, city, airpot'
+          InputLabelProps={{ shrink: true }}
+          onChange={handleToChange}
+          value={to}
+          required
+        />
+
+        <DatePicker
           label='Depart'
-          onChange={handleDepartDateChange}
-          InputLabelProps={{ shrink: true }}
+          minDate={new Date()}
           value={departDate}
+          onChange={handleDepartDateChange}
+          renderInput={(params) => <StyledTextField {...params} />}
         />
-        <StyledTextField
-          type='date'
+        <DatePicker
           label='Return'
-          onChange={handleReturnDateChange}
-          InputLabelProps={{ shrink: true }}
+          minDate={departDate}
           value={returnDate}
-        />
-      </Box>
-      <Box
-        sx={{
-          ml: 1,
-        }}
-      >
-        <FormControlLabel
-          onChange={handleDirectFlightsFromChange}
-          value={directFlyFrom}
-          label='Direct flights only'
-          sx={{
-            color: 'white',
-          }}
-          control={
-            <Checkbox
-              sx={{
-                color: grey[50],
-                '&.Mui-checked': {
-                  color: 'white',
-                },
-              }}
-            />
-          }
+          onChange={handleReturnDateChange}
+          renderInput={(params) => <StyledTextField {...params} />}
         />
       </Box>
 
       <Button
         sx={{
-          display: 'Block',
+          display: 'block',
           marginLeft: 'auto',
+          marginTop: '20px',
         }}
         variant='contained'
         onClick={onSubmit}
