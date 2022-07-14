@@ -11,6 +11,7 @@ const Accordion = styled(MuiAccordion)`
   border: 1px solid grey;
   border-radius: 50px 10px;
   overflow: hidden;
+  color: white;
   background: linear-gradient(
     45deg,
     rgba(0, 112, 255, 1) 0%,
@@ -57,8 +58,6 @@ export default function InfoFlight({
       <Accordion square expanded={expanded} onChange={handleChange}>
         <AccordionSummary
           expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
-          aria-controls='panel1d-content'
-          id='panel1d-header'
         >
           <Logo />
           <Stack
@@ -68,6 +67,7 @@ export default function InfoFlight({
             width='100%'
             spacing={4}
             marginLeft='50px'
+            marginRight='20px'
           >
             <Stack>
               <Typography variant='body1'>{fromHour}</Typography>
@@ -130,7 +130,7 @@ export default function InfoFlight({
             </Typography>
           </Stack>
         </Box>
-        <Stack direction={'row'} spacing={2}>
+        <Stack direction={'row'} spacing={2} marginLeft='20px'>
           <Typography fontSize='10px'>
             Arrives: {dayFlay},{fromDate}
           </Typography>
