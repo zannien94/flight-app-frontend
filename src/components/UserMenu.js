@@ -62,6 +62,7 @@ export default function UserMenu() {
   const handleLogout = (e) => {
     handleClose(e)
     setGlobalState('isUserLogged', false)
+    setGlobalState('user', null)
     Cookies.remove('isUserLogged')
   }
 

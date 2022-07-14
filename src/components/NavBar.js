@@ -59,7 +59,7 @@ export default function NavBar() {
           <Wrapper to='/about' text='About us' />
           <Wrapper to='/contact' text='Contact us' />
           <Button
-            onClick={!isUserLogged && handleRedirect}
+            onClick={!isUserLogged ? handleRedirect : undefined}
             color='inherit'
             sx={{ ml: 'auto' }}
           >
