@@ -8,7 +8,7 @@ import FlightDetails from './pages/FlightDetails'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import UserFlights from './pages/UserFlights'
-
+import UserProfile from './pages/UserProfile'
 function Routes() {
   return (
     <Layout>
@@ -20,6 +20,7 @@ function Routes() {
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
         <Route path='user/flights' element={<UserFlights />} />
+        <Route path='user/profile' element={<UserProfile />} />
       </Router>
     </Layout>
   )

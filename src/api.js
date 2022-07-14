@@ -4,4 +4,7 @@ export const API = {
   users: `${BASE_URL}users`,
   me: `${BASE_URL}users/me`,
   login: `${BASE_URL}auth/login`,
+  reservation: `${BASE_URL}flights/book`,
+  card: `${BASE_URL}users/card`,
+  userReservation: `${BASE_URL}users/reservations`,
 }
