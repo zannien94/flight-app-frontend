@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 import { Stack } from '@mui/material'
 import CreditCardCard from './CreditCardCard'
 import CreditCardForm from './CreditCardForm'
+import { useGlobalState } from '../../globalState'
+import { useEffect } from 'react'
 
 export default function BasicCard() {
+  const [user] = useGlobalState('user')
+
   const [isCardBackground, setIsCardBackground] = useState(false)
   const [nameCard, setNameCard] = useState('')
   const [cardNumber, setCardNumber] = useState('')
@@ -21,13 +25,27 @@ export default function BasicCard() {
     setCardNumber(value)
   }
   const handleChangeDateCard = (value) => {
-    console.log(value)
     setDateCard(value)
   }
   const handleChangeCardCVV = (event) => {
     const { value } = event.target
     setCardCVV(value)
   }
+
+  useEffect(() => {
+    if (!user) {
+      return
+    }
+    setNameCard(`${user.firstName} ${user.lastName}`)
+    if (!user.creditCard.number) {
+      return
+    }
+    const { number, cvc, expirationDate } = user.creditCard
+    setCardNumber(number)
+    setDateCard(new Date(`${expirationDate.replace('/', '/01/')}`))
+    setCardCVV(cvc)
+  }, [user])
+
   return (
     <Stack direction='column' alignItems='center' spacing={3}>
       <CreditCardCard

@@ -6,6 +6,8 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import { DatePicker } from '@mui/x-date-pickers'
+import { addCreditCard } from '../../services'
+import { format } from 'date-fns'
 
 export default function BasicCard({
   renderBackgroundCard,
@@ -18,6 +20,28 @@ export default function BasicCard({
   cardCVV,
   onChangeCardCVV,
 }) {
+  const saveCreditCard = async () => {
+    try {
+      const data = {
+        number: cardNumber,
+        expirationDate: format(dateCard, 'MM/yy'),
+        cvc: cardCVV,
+      }
+
+      const response = await addCreditCard(data)
+      if (response.statusCode) {
+        throw response
+      }
+      alert(`Card has been saved!`)
+    } catch (err) {
+      if (err.statusCode === 403) {
+        alert(`${err.message}`)
+      } else {
+        alert(`Something went wrong!`)
+      }
+    }
+  }
+
   return (
     <Card
       sx={{
@@ -39,6 +63,7 @@ export default function BasicCard({
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
+          marginBottom: '30px',
         }}
       >
         <TextField
@@ -47,6 +72,7 @@ export default function BasicCard({
           variant='standard'
           value={nameCard}
           onChange={onChangeCardName}
+          disabled
         />
         <TextField
           label='Card Number'
@@ -65,7 +91,9 @@ export default function BasicCard({
         >
           <DatePicker
             label='Valid Through'
+            views={['year', 'month']}
             inputFormat='MM/yy'
+            minDate={new Date()}
             value={dateCard}
             onChange={onChangeDateCard}
             renderInput={(params) => (
@@ -85,8 +113,8 @@ export default function BasicCard({
         </Box>
       </Box>
       <CardActions>
-        <Button variant='outlined' onClick={renderBackgroundCard}>
-          PAY
+        <Button variant='outlined' onClick={saveCreditCard}>
+          Save creadit card
         </Button>
       </CardActions>
     </Card>
