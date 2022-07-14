@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { Typography, Stack } from '@mui/material'
-import ContactForm from '../components/ContactForm'
 import ContactBox from '../components/ContactBox'
 
 const Header = styled.div`
@@ -29,7 +28,6 @@ const Contact = () => {
       <Stack>
         <ContactBox />
       </Stack>
-      <ContactForm />
     </Stack>
   )
 }
