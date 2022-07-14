@@ -35,10 +35,12 @@ export const login = async (data) => {
 }
 
 export const getUserData = async () => {
-  const response = await fetch(API.me, {
-    ...DEFAULT_OPTIONS,
-  })
-  return response.json()
+  try {
+    const response = await fetch(API.me, {
+      ...DEFAULT_OPTIONS,
+    })
+    return response.json()
+  } catch {}
 }
 
 export const reservateFlight = async (data) => {
@@ -76,9 +78,11 @@ export const addCreditCard = async (data) => {
 }
 
 export const getUserReservation = async (data) => {
-  const response = await fetch(API.userReservation, {
-    body: JSON.stringify(data),
-    ...DEFAULT_OPTIONS,
-  })
-  return response.json()
+  try {
+    const response = await fetch(API.userReservation, {
+      body: JSON.stringify(data),
+      ...DEFAULT_OPTIONS,
+    })
+    return response.json()
+  } catch {}
 }

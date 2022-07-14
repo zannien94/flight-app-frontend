@@ -18,7 +18,9 @@ const UserFlights = () => {
     try {
       ;(async () => {
         const response = await getUserReservation()
-        setUserFlights(response)
+        if (response) {
+          setUserFlights(response)
+        }
       })()
     } catch {}
   }
