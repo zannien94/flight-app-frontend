@@ -12,12 +12,6 @@ const Header = styled.div`
   background-size: cover;
 `
 const Contact = () => {
-  const [setSpacing] = React.useState(2)
-
-  const handleChange = (event) => {
-    setSpacing(Number(event.target.value))
-  }
-
   return (
     <Stack spacing={3}>
       <Header>

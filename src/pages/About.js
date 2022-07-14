@@ -17,12 +17,6 @@ const StyleBox = styled.div`
 `
 
 const About = () => {
-  const [setSpacing] = React.useState(2)
-
-  const handleChange = (event) => {
-    setSpacing(Number(event.target.value))
-  }
-
   return (
     <Stack>
       <Header>

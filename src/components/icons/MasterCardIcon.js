@@ -16,7 +16,7 @@ const MasterCardIcon = ({ className }) => {
       <g
         id='Figurehead'
         stroke='none'
-        stroke-width='1'
+        strokeWidth='1'
         fill='none'
         fillRule='evenodd'
       >
