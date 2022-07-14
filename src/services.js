@@ -50,6 +50,22 @@ export const reservateFlight = async (data) => {
   return response.json()
 }
 
+export const removeReservateFlight = async (data) => {
+  const response = await fetch(API.unbookFlight, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    ...DEFAULT_OPTIONS,
+  })
+  return response.json()
+}
+
+export const getFlights = async () => {
+  const response = await fetch(API.flights, {
+    ...DEFAULT_OPTIONS,
+  })
+  return response.json()
+}
+
 export const addCreditCard = async (data) => {
   const response = await fetch(API.card, {
     method: 'PATCH',
