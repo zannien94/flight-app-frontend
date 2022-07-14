@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Stack, Box } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
+import { format } from 'date-fns'
+import Button from '@mui/material/Button'
 import InfoFlight from '../components/InfoFlight'
 import CreditCart from '../components/CreditCard'
 import { useGlobalState } from '../globalState'
 import { cityList } from '../utils'
-import { format } from 'date-fns'
-import Button from '@mui/material/Button'
-import { reservateFlight } from '../services'
+import { getFlights, reservateFlight } from '../services'
 
 const FlightDetails = () => {
   const { id } = useParams()
@@ -33,30 +33,44 @@ const FlightDetails = () => {
     cityList.find((item) => item.iata === flightDetails.legs[0].destination)
       .city
 
+  const price =
+    flightDetails &&
+    (flightDetails.legs[0].aircraftArrivalTimeUTC -
+      flightDetails.legs[0].aircraftDepartureTimeUTC) *
+      5
+
   const getFlightTime = (minutes) => {
     return `${Math.floor(minutes / 60)}:${minutes % 60}`
   }
 
   const handleReservationRedirect = async () => {
     try {
-      const price =
-        (flightDetails.legs[0].aircraftArrivalTimeUTC -
-          flightDetails.legs[0].aircraftDepartureTimeUTC) *
-        5
-
       const data = {
         flightNumber: flightDetails.flightNumber.toString(),
         city: toCity,
         fromDate: flightDetails.periodOfOperationUTC.startDate,
         toDate: flightDetails.periodOfOperationUTC.endDate,
         carrier: flightDetails.airline,
-        price,
         toAirport: toAirport,
+        price,
         fromAirport: fromAirport,
         fromHour: flightDetails.legs[0].aircraftDepartureTimeUTC,
         toHour: flightDetails.legs[0].aircraftArrivalTimeUTC,
         fromIata: flightDetails.legs[0].origin,
         toIata: flightDetails.legs[0].destination,
+      }
+
+      const res = await getFlights()
+
+      const currentFlight = res.find(
+        ({ flightNumber, fromDate }) =>
+          flightNumber === flightDetails.flightNumber.toString() &&
+          fromDate === flightDetails.periodOfOperationUTC.startDate
+      )
+      const isAllSeatTaken = currentFlight && currentFlight.availableSeats
+
+      if (isAllSeatTaken <= 0) {
+        return alert(`NO SEATS AVAILABLE!!!"`)
       }
 
       const response = await reservateFlight(data)
@@ -119,6 +133,10 @@ const FlightDetails = () => {
             flexGrow={1}
             direction='row'
           >
+            <Typography typography='h4' color='green' marginRight='20px'>
+              {price}$
+            </Typography>
+
             <Button
               onClick={handleReservationRedirect}
               variant='contained'
