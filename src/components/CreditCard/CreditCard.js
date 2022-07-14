@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 
 export default function BasicCard() {
   const [user] = useGlobalState('user')
+  const [isUserLogged] = useGlobalState('isUserLogged')
 
   const [isCardBackground, setIsCardBackground] = useState(false)
   const [nameCard, setNameCard] = useState('')
@@ -32,7 +33,18 @@ export default function BasicCard() {
     setCardCVV(value)
   }
 
+  const clearCardData = () => {
+    setNameCard('')
+    setCardNumber('')
+    setDateCard(new Date())
+    setCardCVV('')
+  }
+
   useEffect(() => {
+    if (!user && !isUserLogged) {
+      clearCardData()
+    }
+
     if (!user) {
       return
     }
