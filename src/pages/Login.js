@@ -24,14 +24,14 @@ export default function Login() {
     }
 
     try {
-      const res = await login(data)
+      const response = await login(data)
 
-      if (res.statusCode !== 201) {
-        throw res.statusCode
+      if (response.statusCode !== 201) {
+        throw response.statusCode
       }
       Cookies.set('isUserLogged', true)
       setGlobalState('isUserLogged', true)
-      alert(`${res.message}`)
+      alert(`${response.message}`)
       handleRedirect()
     } catch {
       alert(`Wrong email or password!!`)
