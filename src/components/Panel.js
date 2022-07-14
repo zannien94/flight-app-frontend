@@ -1,9 +1,11 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import { Paper, TextField } from '@mui/material'
+import { Autocomplete, Paper, TextField } from '@mui/material'
 import Button from '@mui/material/Button'
 import styled from '@emotion/styled'
+import { LoadingButton } from '@mui/lab'
 import { DatePicker } from '@mui/x-date-pickers'
+import { cityList } from '../utils'
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
@@ -29,16 +31,19 @@ const StyledTextField = styled(TextField)({
   },
 })
 
+const flightCityList = cityList.map(
+  ({ name, iata, icao }) => `${name} - ${iata} - ${icao}`
+)
+
 export default function Panel({
-  from,
   departDate,
   returnDate,
-  to,
   handleFromChange,
   handleDepartDateChange,
   handleReturnDateChange,
   handleToChange,
   onSubmit,
+  loading,
 }) {
   return (
     <StyledPaper>
@@ -51,22 +56,34 @@ export default function Panel({
         noValidate
         autoComplete='off'
       >
-        <StyledTextField
-          label='From'
-          placeholder='Country, city, airpot'
-          InputLabelProps={{ shrink: true }}
-          onChange={handleFromChange}
-          value={from}
-          required
+        <Autocomplete
+          disablePortal
+          options={flightCityList}
+          sx={{ width: 300 }}
+          onBlur={handleFromChange}
+          renderInput={(params) => (
+            <StyledTextField
+              {...params}
+              label='From'
+              placeholder='Country, city, airpot'
+              InputLabelProps={{ shrink: true }}
+            />
+          )}
         />
 
-        <StyledTextField
-          label='To'
-          placeholder='Country, city, airpot'
-          InputLabelProps={{ shrink: true }}
-          onChange={handleToChange}
-          value={to}
-          required
+        <Autocomplete
+          disablePortal
+          options={flightCityList}
+          sx={{ width: 300 }}
+          onBlur={handleToChange}
+          renderInput={(params) => (
+            <StyledTextField
+              {...params}
+              label='To'
+              placeholder='Country, city, airpot'
+              InputLabelProps={{ shrink: true }}
+            />
+          )}
         />
 
         <DatePicker
@@ -85,17 +102,21 @@ export default function Panel({
         />
       </Box>
 
-      <Button
+      <LoadingButton
+        loading={loading}
         sx={{
           display: 'block',
           marginLeft: 'auto',
           marginTop: '20px',
+          '.MuiLoadingButton-loadingIndicator': {
+            color: 'white',
+          },
         }}
         variant='contained'
         onClick={onSubmit}
       >
         Get started
-      </Button>
+      </LoadingButton>
     </StyledPaper>
   )
 }

@@ -114,34 +114,22 @@ const FlightDetails = () => {
             defaultExpanded
           />
           <Stack
-            sx={{
-              height: '20px',
-              width: '150px',
-
-              alignItems: 'right',
-            }}
-            direction='column'
-            spacing={3}
-          ></Stack>
+            justifyContent='flex-end'
+            alignItems='flex-end'
+            flexGrow={1}
+            direction='row'
+          >
+            <Button
+              onClick={handleReservationRedirect}
+              variant='contained'
+              disableElevation
+            >
+              Reservation
+            </Button>
+          </Stack>
         </Stack>
         <CreditCart />
       </Stack>
-      <Box
-        sx={{
-          display: 'flex',
-          // flexDirection: 'column',
-          width: '200px',
-          alignItems: 'right',
-        }}
-      >
-        <Button
-          onClick={handleReservationRedirect}
-          variant='contained'
-          disableElevation
-        >
-          Reservation
-        </Button>
-      </Box>
     </Stack>
   )
 }

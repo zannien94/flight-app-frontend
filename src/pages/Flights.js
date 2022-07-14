@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { Typography, Stack } from '@mui/material'
 import Panel from '../components/Panel'
 import CardList from '../components/CardList'
-import { getDateForFlight } from '../utils'
+import { cityList, getDateForFlight } from '../utils'
 import { setGlobalState } from '../globalState'
 
 const Header = styled.div`
@@ -20,10 +20,12 @@ const Flights = () => {
   const [from, setFrom] = useState('')
   const [departDate, setDepartDate] = useState(new Date())
   const [returnDate, setReturnDate] = useState(new Date())
+  const [loading, setLoading] = useState(false)
   const [to, setTo] = useState('')
 
   const handleFromChange = (event) => {
-    setFrom(event.target.value)
+    const { value } = event.target
+    setFrom(value)
   }
 
   const handleDepartDateChange = (date) => {
@@ -35,20 +37,29 @@ const Flights = () => {
   }
 
   const handleToChange = (event) => {
-    setTo(event.target.value)
+    const { value } = event.target
+    setTo(value)
   }
 
   const onSubmit = async () => {
+    setLoading(true)
     try {
       const url = new URL(
         'https://api.lufthansa.com/v1/flight-schedules/flightschedules/passenger'
       )
+
+      const origin = cityList.find(({ name }) => name === from.split(' - ')[0])
+        .iata
+      const destination = cityList.find(
+        ({ name }) => name === to.split(' - ')[0]
+      ).iata
+
       const params = {
         airlines: 'LH',
         startDate: getDateForFlight(departDate).toUpperCase(),
         endDate: getDateForFlight(returnDate).toUpperCase(),
-        origin: from.toUpperCase(),
-        destination: to.toUpperCase(),
+        origin,
+        destination,
         daysOfOperation: 1234567,
         timeMode: 'UTC',
       }
@@ -75,7 +86,13 @@ const Flights = () => {
       }
       setGlobalState('flights', data)
     } catch (err) {
-      alert('Something went wrong!')
+      if (err.httpStatus === 404) {
+        alert(err.messages[0].text)
+      } else {
+        alert('Something went wrong!')
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -87,15 +104,14 @@ const Flights = () => {
             Let the journey begin
           </Typography>
           <Panel
-            from={from}
             departDate={departDate}
             returnDate={returnDate}
-            to={to}
             handleFromChange={handleFromChange}
             handleDepartDateChange={handleDepartDateChange}
             handleReturnDateChange={handleReturnDateChange}
             handleToChange={handleToChange}
             onSubmit={onSubmit}
+            loading={loading}
           />
         </Stack>
       </Header>
