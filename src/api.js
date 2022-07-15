@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000/api/v1/'
+export const BASE_URL = 'https://mk-flight-app-be.herokuapp.com/api/v1/'
 export const EXTERNAL_FLIGHTS_URL = new URL(
   'https://api.lufthansa.com/v1/flight-schedules/flightschedules/passenger'
 )
