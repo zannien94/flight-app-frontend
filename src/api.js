@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000/'
+export const BASE_URL = 'http://mk-flight-app-be.herokuapp.com/api/v1/'
 
 export const API = {
   users: `${BASE_URL}users`,
