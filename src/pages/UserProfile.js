@@ -11,6 +11,7 @@ import CreditCard from '../components/CreditCard'
 export default function UserProfile() {
   const navigate = useNavigate()
   const [isUserLogged] = useGlobalState('isUserLogged')
+  const [isLoading] = useGlobalState('isLoading')
   const [user] = useGlobalState('user')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -63,10 +64,10 @@ export default function UserProfile() {
   }
 
   useEffect(() => {
-    if (!isUserLogged) {
+    if (!isUserLogged && !isLoading) {
       navigate('/')
     }
-  }, [])
+  }, [isUserLogged])
 
   useEffect(() => {
     if (!user) {

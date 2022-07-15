@@ -9,6 +9,7 @@ import { getUserReservation, removeReservateFlight } from '../services'
 const UserFlights = () => {
   const navigate = useNavigate()
   const [isUserLogged] = useGlobalState('isUserLogged')
+  const [isLoading] = useGlobalState('isLoading')
   const [userFlights, setUserFlights] = useState([])
 
   const getFlightTime = (minutes) => {
@@ -44,10 +45,10 @@ const UserFlights = () => {
   }
 
   useEffect(() => {
-    if (!isUserLogged) {
+    if (!isUserLogged && !isLoading) {
       navigate('/')
     }
-  }, [])
+  }, [isUserLogged])
 
   useEffect(() => {
     fetchUserReservation()
