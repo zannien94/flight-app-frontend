@@ -1,13 +1,13 @@
 {
-  "main.css": "/flight-app-frontend/static/css/main.e75e3f77.chunk.css",
-  "main.js": "/flight-app-frontend/static/js/main.75a16018.chunk.js",
-  "main.js.map": "/flight-app-frontend/static/js/main.75a16018.chunk.js.map",
-  "static/js/1.eca5b609.chunk.js": "/flight-app-frontend/static/js/1.eca5b609.chunk.js",
-  "static/js/1.eca5b609.chunk.js.map": "/flight-app-frontend/static/js/1.eca5b609.chunk.js.map",
-  "runtime~main.js": "/flight-app-frontend/static/js/runtime~main.1d0f7b37.js",
-  "runtime~main.js.map": "/flight-app-frontend/static/js/runtime~main.1d0f7b37.js.map",
-  "static/css/main.e75e3f77.chunk.css.map": "/flight-app-frontend/static/css/main.e75e3f77.chunk.css.map",
-  "index.html": "/flight-app-frontend/index.html",
-  "precache-manifest.577fef0b172d6f2954cf40ce19799b1a.js": "/flight-app-frontend/precache-manifest.577fef0b172d6f2954cf40ce19799b1a.js",
-  "service-worker.js": "/flight-app-frontend/service-worker.js"
+  "main.css": "/flight-app-frontend.git/static/css/main.e75e3f77.chunk.css",
+  "main.js": "/flight-app-frontend.git/static/js/main.75a16018.chunk.js",
+  "main.js.map": "/flight-app-frontend.git/static/js/main.75a16018.chunk.js.map",
+  "static/js/1.eca5b609.chunk.js": "/flight-app-frontend.git/static/js/1.eca5b609.chunk.js",
+  "static/js/1.eca5b609.chunk.js.map": "/flight-app-frontend.git/static/js/1.eca5b609.chunk.js.map",
+  "runtime~main.js": "/flight-app-frontend.git/static/js/runtime~main.bc29b798.js",
+  "runtime~main.js.map": "/flight-app-frontend.git/static/js/runtime~main.bc29b798.js.map",
+  "static/css/main.e75e3f77.chunk.css.map": "/flight-app-frontend.git/static/css/main.e75e3f77.chunk.css.map",
+  "index.html": "/flight-app-frontend.git/index.html",
+  "precache-manifest.efc44bac5daa72160f22dad3d1274d9f.js": "/flight-app-frontend.git/precache-manifest.efc44bac5daa72160f22dad3d1274d9f.js",
+  "service-worker.js": "/flight-app-frontend.git/service-worker.js"
 }

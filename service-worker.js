@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/flight-app-frontend/precache-manifest.577fef0b172d6f2954cf40ce19799b1a.js"
+  "/flight-app-frontend.git/precache-manifest.efc44bac5daa72160f22dad3d1274d9f.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/flight-app-frontend/index.html", {
+workbox.routing.registerNavigationRoute("/flight-app-frontend.git/index.html", {
   
   blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });
