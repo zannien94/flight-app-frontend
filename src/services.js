@@ -1,9 +1,16 @@
-import { API } from './api'
+import { API, token } from './api'
 
 const DEFAULT_OPTIONS = {
   credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
+  },
+}
+
+export const OPTIONS_EXTERNAL_API = {
+  headers: {
+    Accept: 'application/json',
+    Authorization: `Bearer ${token}`,
   },
 }
 

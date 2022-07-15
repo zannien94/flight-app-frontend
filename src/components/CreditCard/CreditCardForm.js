@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { format } from 'date-fns'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
@@ -6,8 +7,8 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import { DatePicker } from '@mui/x-date-pickers'
-import { addCreditCard } from '../../services'
-import { format } from 'date-fns'
+import { addCreditCard, getUserData } from '../../services'
+import { setGlobalState } from '../../globalState'
 
 export default function BasicCard({
   renderBackgroundCard,
@@ -33,6 +34,8 @@ export default function BasicCard({
         throw response
       }
       alert(`Card has been saved!`)
+      const userData = await getUserData()
+      setGlobalState('user', userData)
     } catch (err) {
       if (err.statusCode === 403) {
         alert(`${err.message}`)

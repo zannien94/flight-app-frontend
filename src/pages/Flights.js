@@ -5,6 +5,8 @@ import Panel from '../components/Panel'
 import CardList from '../components/CardList'
 import { cityList, getDateForFlight } from '../utils'
 import { setGlobalState } from '../globalState'
+import { EXTERNAL_FLIGHTS_URL } from '../api'
+import { OPTIONS_EXTERNAL_API } from '../services'
 
 const Header = styled.div`
   height: 600px;
@@ -44,12 +46,10 @@ const Flights = () => {
   const onSubmit = async () => {
     setLoading(true)
     try {
-      const url = new URL(
-        'https://api.lufthansa.com/v1/flight-schedules/flightschedules/passenger'
-      )
-
-      const origin = cityList.find(({ name }) => name === from.split(' - ')[0])
-        .iata
+      const url = EXTERNAL_FLIGHTS_URL
+      const origin = cityList.find(
+        ({ name }) => name === from.split(' - ')[0]
+      ).iata
       const destination = cityList.find(
         ({ name }) => name === to.split(' - ')[0]
       ).iata
@@ -75,10 +75,7 @@ const Flights = () => {
       }
 
       const response = await fetch(url, {
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'Bearer 6d7bw5ga3ghg2a2mh4azhpqn',
-        },
+        ...OPTIONS_EXTERNAL_API,
       })
       const data = await response.json()
       if (data.httpStatus) {
